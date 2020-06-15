@@ -1,0 +1,33 @@
+.App {
+  min-height: 100vh;
+
+  &__main {
+    width: 100%;
+    max-width: 80%;
+    margin: auto;
+    padding: 50px 0;
+  }
+
+  &__page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+
+    h1 {
+      margin-bottom: 0;
+    }
+
+    &__search {
+      width: 100%;
+      max-width: 400px;
+    }
+  }
+
+  &__toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 0.75rem;
+  }
+}
