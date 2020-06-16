@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import uniqueId from 'lodash/uniqueId';
+import axios from 'axios';
 import {
   Layout,
   Menu,
@@ -81,10 +82,51 @@ const App = () => {
   const [form] = Form.useForm();
 
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/posts')
-      .then((res) => res.json())
-      .then(setData);
+    axios.get('https://jsonplaceholder.typicode.com/posts').then((res) => {
+      setData(res.data);
+    });
   }, []);
+
+  /*
+
+    TODO
+      - search filter
+
+    ROUTING
+      - Include routing in the application to navigate between the pages.
+      - Create a header menu on top of the page include "Posts" as a menu item.
+      - By default when launch the application Posts page will open.
+
+    REDUX
+      - action type
+      - action creator
+      - reducer
+      - include response data in store
+
+    EXPORT CSV
+      const rows = [
+        ['name1', 'city1', 'some other info'],
+        ['name2', 'city2', 'more info'],
+      ];
+      let csvContent = 'data:text/csv;charset=utf-8,' + rows.map((e) => e.join(',')).join('\n');
+      var encodedUri = encodeURI(csvContent);
+      window.open(encodedUri);
+
+    CREATE Post
+      - UserId(Number), Id(Number), Title(Text) and Body(Text Area) fields.
+      - Keep UserId(Number), Id(Number), Title(Text)  as mandatory fields.
+      - After clicking submit button it will add to the Posts table.
+
+    UPDATE Post
+      - Open modal, pre-fill form fields with existing row data
+      - Save and update field and reflect change in table
+
+    DELETE Post
+      - Provide confirmation. Use: `Popconfirm` component
+      - "Do you want to delete the selected post?"
+      - After the confirmation, delete selected row in the table
+
+  */
 
   const showModal = () => setModalOpen(true);
   const hideModal = () => setModalOpen(false);
@@ -136,21 +178,6 @@ const App = () => {
                 onFinish={onFinish}
                 initialValues={{ body: '' }}
               >
-                {/*
-                  CREATE Post
-                    - UserId(Number), Id(Number), Title(Text) and Body(Text Area) fields.
-                    - Keep UserId(Number), Id(Number), Title(Text)  as mandatory fields.
-                    - After clicking submit button it will add to the Posts table.
-
-                  UPDATE Post
-                    - Open modal, pre-fill form fields with existing row data
-                    - Save and update field and reflect change in table
-
-                  DELETE Post
-                    - Provide confirmation. Use: `Popconfirm` component
-                    - "Do you want to delete the selected post?"
-                    - After the confirmation, delete selected row in the table
-              */}
                 <Form.Item
                   name="userId"
                   label="User Id"
