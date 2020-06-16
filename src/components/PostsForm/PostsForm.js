@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Form, Input, InputNumber, Button } from 'antd';
 import uniqueId from 'lodash/uniqueId';
 
@@ -69,6 +70,10 @@ const PostsForm = ({ hideModal }) => {
       </Form.Item>
     </Form>
   );
+};
+
+PostsForm.propTypes = {
+  hideModal: PropTypes.func.isRequired,
 };
 
 export default PostsForm;
