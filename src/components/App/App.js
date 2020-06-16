@@ -1,6 +1,6 @@
-import React from 'react';
-import { Layout, Menu, Typography, Input, Button, Table } from 'antd';
-import { DownloadOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import React, { useEffect, useState } from 'react';
+import { Layout, Menu, Typography, Input, Button, Table, Spin } from 'antd';
+import { DownloadOutlined, EditOutlined, DeleteOutlined, LoadingOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 import './App.scss';
 
@@ -59,50 +59,19 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    userId: 1,
-    id: 1,
-    title: 'a',
-    body: 'd',
-  },
-  {
-    userId: 1,
-    id: 10,
-    title: 'b',
-    body: 'c',
-  },
-  {
-    userId: 1,
-    id: 20,
-    title: 'c',
-    body: 'd',
-  },
-  {
-    userId: 2,
-    id: 11,
-    title: 'd',
-    body: 'c',
-  },
-  {
-    userId: 3,
-    id: 26,
-    title: 'c',
-    body: 'b',
-  },
-  {
-    userId: 4,
-    id: 32,
-    title: 'd',
-    body: 'a',
-  },
-];
-
 function onChange(pagination, filters, sorter, extra) {
   console.log('params', pagination, filters, sorter, extra);
 }
 
 const App = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      .then((res) => res.json())
+      .then(setData);
+  }, []);
+
   return (
     <Layout className="App">
       <Layout.Header>
@@ -111,9 +80,9 @@ const App = () => {
         </Menu>
       </Layout.Header>
       <Layout.Content className="App__main">
-        <div className="App__page-header">
+        <div className="App__bar">
           <Typography.Title>Posts</Typography.Title>
-          <div className="App__page-header__search">
+          <div className="App__search">
             <Input.Search
               placeholder="Search"
               allowClear={true}
@@ -122,15 +91,24 @@ const App = () => {
             />
           </div>
         </div>
-        <div className="App__toolbar">
-          <Button type="link" size="large">
-            New Post
-          </Button>
-          <Button type="link" size="large">
-            <DownloadOutlined /> Export
-          </Button>
+        <div className="App__bar">
+          <Typography.Text type="secondary">100 results found</Typography.Text>
+          <div>
+            <Button type="link" size="large">
+              New Post
+            </Button>
+            <Button type="link" size="large">
+              <DownloadOutlined /> Export
+            </Button>
+          </div>
         </div>
-        <Table columns={columns} dataSource={data} onChange={onChange} rowKey="id" />
+        {data.length === 0 ? (
+          <div className="loading-section">
+            <Spin indicator={<LoadingOutlined style={{ fontSize: 32 }} />} />
+          </div>
+        ) : (
+          <Table columns={columns} dataSource={data} onChange={onChange} rowKey="id" />
+        )}
       </Layout.Content>
     </Layout>
   );
