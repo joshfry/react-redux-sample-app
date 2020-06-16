@@ -1,19 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import uniqueId from 'lodash/uniqueId';
-import {
-  Layout,
-  Menu,
-  Typography,
-  Button,
-  Table,
-  Spin,
-  Modal,
-  Form,
-  Input,
-  InputNumber,
-} from 'antd';
-import { DownloadOutlined, EditOutlined, DeleteOutlined, LoadingOutlined } from '@ant-design/icons';
-import 'antd/dist/antd.css';
+import { Layout, Typography, Button, Table, Spin, Modal, Form, Input, InputNumber } from 'antd';
+import { EditOutlined, DeleteOutlined, LoadingOutlined } from '@ant-design/icons';
+import Header from 'components/Header';
+import ExportCsvButtonContainer from 'containers/ExportCsvButtonContainer';
 
 const columns = [
   {
@@ -96,92 +86,100 @@ const PostsScreen = ({ getPosts, posts }) => {
   };
 
   return (
-    <Layout className="App">
-      <Layout.Header>
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
-          <Menu.Item key="1">Posts</Menu.Item>
-        </Menu>
-      </Layout.Header>
-      <Layout.Content className="App__main">
-        <div className="App__bar">
-          <Typography.Title>Posts</Typography.Title>
-          <div className="App__search">
-            <Input.Search
-              placeholder="Search"
-              allowClear={true}
-              size="large"
-              onSearch={(value) => console.log(value)}
-            />
+    <div className="App">
+      <Layout>
+        <Header />
+        <Layout.Content className="App__main">
+          <div className="App__bar">
+            <div>
+              <Typography.Title>Posts</Typography.Title>
+            </div>
+            <div className="App__search">
+              <Input.Search
+                placeholder="Search"
+                allowClear={true}
+                size="large"
+                onSearch={(value) => console.log(value)}
+              />
+            </div>
           </div>
-        </div>
-        <div className="App__bar">
-          <Typography.Text type="secondary">100 results</Typography.Text>
-          <div>
-            <Button type="link" size="large" onClick={showModal}>
-              New Post
-            </Button>
-            <Modal centered title="New Post" visible={modalOpen} footer={null} onCancel={hideModal}>
-              <Form
-                name="new-post"
-                layout="vertical"
-                validateMessages={{
-                  required: '${label} is required.', // eslint-disable-line
-                  types: { number: '${label} is not a valid number.' }, // eslint-disable-line
-                }}
-                form={form}
-                onFinish={onFinish}
-                initialValues={{ body: '' }}
+          <div className="App__bar">
+            <div>
+              {posts.length > 0 && (
+                <Typography.Text type="secondary">{posts.length} results</Typography.Text>
+              )}
+            </div>
+            <div>
+              <Button type="link" size="large" onClick={showModal}>
+                New Post
+              </Button>
+              <ExportCsvButtonContainer />
+              <Modal
+                centered
+                title="New Post"
+                visible={modalOpen}
+                footer={null}
+                onCancel={hideModal}
               >
-                <Form.Item
-                  name="userId"
-                  label="User Id"
-                  rules={[{ required: true, type: 'number', min: 0 }]}
+                <Form
+                  name="new-post"
+                  layout="vertical"
+                  validateMessages={{
+                    required: '${label} is required.', // eslint-disable-line
+                    types: { number: '${label} is not a valid number.' }, // eslint-disable-line
+                  }}
+                  form={form}
+                  onFinish={onFinish}
+                  initialValues={{ body: '' }}
                 >
-                  <InputNumber />
-                </Form.Item>
-                <Form.Item name="title" label="Title" rules={[{ required: true }]}>
-                  <Input />
-                </Form.Item>
-                <Form.Item name="body" label="Body">
-                  <Input.TextArea />
-                </Form.Item>
-                <Form.Item style={{ marginBottom: '0' }}>
-                  <Button type="primary" htmlType="submit">
-                    Submit
-                  </Button>
-                  <Button
-                    htmlType="button"
-                    style={{ margin: '0 8px' }}
-                    onClick={() => {
-                      form.resetFields();
-                      hideModal();
-                    }}
+                  <Form.Item
+                    name="userId"
+                    label="User Id"
+                    rules={[{ required: true, type: 'number', min: 0 }]}
                   >
-                    Cancel
-                  </Button>
-                </Form.Item>
-              </Form>
-            </Modal>
-            <Button type="link" size="large">
-              <DownloadOutlined /> Export
-            </Button>
+                    <InputNumber />
+                  </Form.Item>
+                  <Form.Item name="title" label="Title" rules={[{ required: true }]}>
+                    <Input />
+                  </Form.Item>
+                  <Form.Item name="body" label="Body">
+                    <Input.TextArea />
+                  </Form.Item>
+                  <Form.Item style={{ marginBottom: '0' }}>
+                    <Button type="primary" htmlType="submit">
+                      Submit
+                    </Button>
+                    <Button
+                      htmlType="button"
+                      style={{ margin: '0 8px' }}
+                      onClick={() => {
+                        form.resetFields();
+                        hideModal();
+                      }}
+                    >
+                      Cancel
+                    </Button>
+                  </Form.Item>
+                </Form>
+              </Modal>
+            </div>
           </div>
-        </div>
-        {posts.length === 0 ? (
-          <div className="loading-section">
-            <Spin indicator={<LoadingOutlined style={{ fontSize: 32 }} />} />
-          </div>
-        ) : (
-          <Table
-            rowKey="id"
-            columns={columns}
-            dataSource={posts}
-            onChange={onChange}
-            showTotal={true}
-          />
-        )}
-      </Layout.Content>
-    </Layout>
+          {posts.length === 0 ? (
+            <div className="loading-section">
+              <Spin indicator={<LoadingOutlined style={{ fontSize: 32 }} />} />
+            </div>
+          ) : (
+            <Table
+              rowKey="id"
+              columns={columns}
+              dataSource={posts}
+              onChange={onChange}
+              showTotal={true}
+            />
+          )}
+        </Layout.Content>
+      </Layout>
+    </div>
   );
 };
 
