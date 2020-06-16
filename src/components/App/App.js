@@ -1,5 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Layout, Menu, Typography, Input, Button, Table, Spin } from 'antd';
+import uniqueId from 'lodash/uniqueId';
+import {
+  Layout,
+  Menu,
+  Typography,
+  Button,
+  Table,
+  Spin,
+  Modal,
+  Form,
+  Input,
+  InputNumber,
+} from 'antd';
 import { DownloadOutlined, EditOutlined, DeleteOutlined, LoadingOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 import './App.scss';
@@ -65,12 +77,27 @@ function onChange(pagination, filters, sorter, extra) {
 
 const App = () => {
   const [data, setData] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [form] = Form.useForm();
 
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/posts')
       .then((res) => res.json())
       .then(setData);
   }, []);
+
+  const showModal = () => setModalOpen(true);
+  const hideModal = () => setModalOpen(false);
+
+  const onFinish = (values) => {
+    const post = {
+      id: uniqueId(10),
+      ...values,
+    };
+    console.log(post);
+
+    hideModal();
+  };
 
   return (
     <Layout className="App">
@@ -92,11 +119,68 @@ const App = () => {
           </div>
         </div>
         <div className="App__bar">
-          <Typography.Text type="secondary">100 results found</Typography.Text>
+          <Typography.Text type="secondary">100 results</Typography.Text>
           <div>
-            <Button type="link" size="large">
+            <Button type="link" size="large" onClick={showModal}>
               New Post
             </Button>
+            <Modal centered title="New Post" visible={modalOpen} footer={null} onCancel={hideModal}>
+              <Form
+                name="new-post"
+                layout="vertical"
+                validateMessages={{
+                  required: '${label} is required.',
+                  types: { number: '${label} is not a valid number.' },
+                }}
+                form={form}
+                onFinish={onFinish}
+                initialValues={{ body: '' }}
+              >
+                {/*
+                  CREATE Post
+                    - UserId(Number), Id(Number), Title(Text) and Body(Text Area) fields.
+                    - Keep UserId(Number), Id(Number), Title(Text)  as mandatory fields.
+                    - After clicking submit button it will add to the Posts table.
+
+                  UPDATE Post
+                    - Open modal, pre-fill form fields with existing row data
+                    - Save and update field and reflect change in table
+
+                  DELETE Post
+                    - Provide confirmation. Use: `Popconfirm` component
+                    - "Do you want to delete the selected post?"
+                    - After the confirmation, delete selected row in the table
+              */}
+                <Form.Item
+                  name="userId"
+                  label="User Id"
+                  rules={[{ required: true, type: 'number', min: 0 }]}
+                >
+                  <InputNumber />
+                </Form.Item>
+                <Form.Item name="title" label="Title" rules={[{ required: true }]}>
+                  <Input />
+                </Form.Item>
+                <Form.Item name="body" label="Body">
+                  <Input.TextArea />
+                </Form.Item>
+                <Form.Item style={{ marginBottom: '0' }}>
+                  <Button type="primary" htmlType="submit">
+                    Submit
+                  </Button>
+                  <Button
+                    htmlType="button"
+                    style={{ margin: '0 8px' }}
+                    onClick={() => {
+                      form.resetFields();
+                      hideModal();
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                </Form.Item>
+              </Form>
+            </Modal>
             <Button type="link" size="large">
               <DownloadOutlined /> Export
             </Button>
@@ -107,7 +191,13 @@ const App = () => {
             <Spin indicator={<LoadingOutlined style={{ fontSize: 32 }} />} />
           </div>
         ) : (
-          <Table columns={columns} dataSource={data} onChange={onChange} rowKey="id" />
+          <Table
+            rowKey="id"
+            columns={columns}
+            dataSource={data}
+            onChange={onChange}
+            showTotal={true}
+          />
         )}
       </Layout.Content>
     </Layout>
