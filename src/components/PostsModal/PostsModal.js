@@ -8,7 +8,14 @@ const PostsModal = ({ modal, closeModal }) => {
   const title = modal.type === modalTypes.NEW_POST ? 'New Post' : 'Edit Post';
 
   return (
-    <Modal centered title={title} visible={modal.type} footer={null} onCancel={closeModal}>
+    <Modal
+      centered
+      title={title}
+      footer={null}
+      destroyOnClose={true}
+      visible={modal.type}
+      onCancel={closeModal}
+    >
       <PostsForm record={modal.record} closeModal={closeModal} />
     </Modal>
   );

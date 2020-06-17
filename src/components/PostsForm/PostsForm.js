@@ -6,18 +6,16 @@ import uniqueId from 'lodash/uniqueId';
 const PostsForm = ({ record, closeModal }) => {
   const [form] = Form.useForm();
 
-  console.log('record', record);
+  const initialValues = {
+    userId: undefined,
+    id: +uniqueId(10),
+    title: '',
+    body: '',
+    ...record,
+  };
 
   const onFinish = (values) => {
-    const post = {
-      id: uniqueId(10),
-      ...values,
-    };
-
-    // TODO: sdave new post
-    console.log(post);
-
-    closeModal();
+    console.log(values);
   };
 
   return (
@@ -30,7 +28,7 @@ const PostsForm = ({ record, closeModal }) => {
       }}
       form={form}
       onFinish={onFinish}
-      initialValues={{ body: '' }}
+      initialValues={initialValues}
     >
       <Input.Group compact>
         <Form.Item
@@ -41,8 +39,8 @@ const PostsForm = ({ record, closeModal }) => {
           <InputNumber style={{ width: 150 }} />
         </Form.Item>
         <Form.Item
-          name="Id"
-          label="id"
+          name="id"
+          label="Id"
           rules={[{ required: true, type: 'number', min: 0 }]}
           style={{ margin: '0 1rem' }}
         >
@@ -59,14 +57,7 @@ const PostsForm = ({ record, closeModal }) => {
         <Button type="primary" htmlType="submit">
           Submit
         </Button>
-        <Button
-          htmlType="button"
-          style={{ margin: '0 8px' }}
-          onClick={() => {
-            form.resetFields();
-            closeModal();
-          }}
-        >
+        <Button htmlType="button" style={{ margin: '0 8px' }} onClick={() => closeModal()}>
           Cancel
         </Button>
       </Form.Item>
