@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { Form, Input, InputNumber, Button } from 'antd';
 import uniqueId from 'lodash/uniqueId';
 
-const PostsForm = ({ record, closeModal }) => {
+const PostsForm = ({ createPost, updatePost, closeModal, record }) => {
   const [form] = Form.useForm();
+  const isEditForm = Object.keys(record).length > 0;
 
   const initialValues = {
     userId: undefined,
@@ -15,7 +16,14 @@ const PostsForm = ({ record, closeModal }) => {
   };
 
   const onFinish = (values) => {
-    console.log(values);
+    if (isEditForm) {
+      updatePost(values);
+      closeModal();
+      return;
+    }
+
+    createPost(values);
+    closeModal();
   };
 
   return (
@@ -36,7 +44,7 @@ const PostsForm = ({ record, closeModal }) => {
           label="User Id"
           rules={[{ required: true, type: 'number', min: 0 }]}
         >
-          <InputNumber style={{ width: 150 }} />
+          <InputNumber style={{ width: 150 }} readOnly={isEditForm} disabled={isEditForm} />
         </Form.Item>
         <Form.Item
           name="id"
@@ -44,7 +52,7 @@ const PostsForm = ({ record, closeModal }) => {
           rules={[{ required: true, type: 'number', min: 0 }]}
           style={{ margin: '0 1rem' }}
         >
-          <InputNumber style={{ width: 150 }} />
+          <InputNumber style={{ width: 150 }} readOnly={true} disabled={true} />
         </Form.Item>
       </Input.Group>
       <Form.Item name="title" label="Title" rules={[{ required: true }]}>
@@ -65,8 +73,15 @@ const PostsForm = ({ record, closeModal }) => {
   );
 };
 
+PostsForm.defaultProps = {
+  record: {},
+};
+
 PostsForm.propTypes = {
+  createPost: PropTypes.func.isRequired,
+  updatePost: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
+  record: PropTypes.object,
 };
 
 export default PostsForm;

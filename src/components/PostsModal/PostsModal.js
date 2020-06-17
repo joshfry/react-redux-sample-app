@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from 'antd';
-import PostsForm from 'components/PostsForm';
+import PostsFormContainer from 'containers/PostsFormContainer';
 import { modalTypes } from './index';
 
 const PostsModal = ({ modal, closeModal }) => {
@@ -16,7 +16,7 @@ const PostsModal = ({ modal, closeModal }) => {
       visible={modal.type}
       onCancel={closeModal}
     >
-      <PostsForm record={modal.record} closeModal={closeModal} />
+      <PostsFormContainer record={modal.record} closeModal={closeModal} />
     </Modal>
   );
 };

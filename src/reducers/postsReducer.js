@@ -31,13 +31,19 @@ export default (state = initialState, action) => {
   }
 
   if (action.type === CREATE_POST) {
-    console.log(action);
-    return state;
+    const { posts, ...values } = state;
+    const newPosts = posts.slice();
+    newPosts.unshift(action.payload);
+    return { posts: newPosts, ...values };
   }
 
   if (action.type === UPDATE_POST) {
-    console.log(action);
-    return state;
+    const { posts, ...values } = state;
+    const newPosts = posts.map((post) => {
+      if (post.id === action.payload.id) return action.payload;
+      return post;
+    });
+    return { posts: newPosts, ...values };
   }
 
   if (action.type === DELETE_POST) {
