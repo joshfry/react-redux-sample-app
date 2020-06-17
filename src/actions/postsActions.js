@@ -3,11 +3,15 @@ import {
   GET_POSTS_REQUEST,
   GET_POSTS_SUCCESS,
   GET_POSTS_FAILURE,
+  CREATE_POST,
+  UPDATE_POST,
   DELETE_POST,
 } from 'actions/actionTypes';
 
 // ACTION CREATORS
 
+export const createPost = (payload) => ({ type: CREATE_POST, payload });
+export const updatePost = (payload) => ({ type: UPDATE_POST, payload });
 export const deletePost = (payload) => ({ type: DELETE_POST, payload });
 
 // ASYNC ACTION CREATORS

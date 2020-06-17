@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Layout, Typography, Button, Input, Modal } from 'antd';
 import Header from 'components/Header';
 import ExportCsvButtonContainer from 'containers/ExportCsvButtonContainer';
@@ -39,7 +40,13 @@ const PostsScreen = ({ getPosts, posts }) => {
               )}
             </div>
             <div>
-              <Button type="link" size="large" onClick={showModal}>
+              <Button
+                type="link"
+                size="large"
+                onClick={() => {
+                  showModal();
+                }}
+              >
                 New Post
               </Button>
               <ExportCsvButtonContainer />
@@ -59,6 +66,11 @@ const PostsScreen = ({ getPosts, posts }) => {
       </Layout>
     </div>
   );
+};
+
+PostsScreen.propTypes = {
+  getPosts: PropTypes.func.isRequired,
+  posts: PropTypes.array.isRequired,
 };
 
 export default PostsScreen;

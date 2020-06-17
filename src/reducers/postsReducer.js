@@ -2,6 +2,8 @@ import {
   GET_POSTS_REQUEST,
   GET_POSTS_SUCCESS,
   GET_POSTS_FAILURE,
+  CREATE_POST,
+  UPDATE_POST,
   DELETE_POST,
 } from 'actions/actionTypes';
 
@@ -22,6 +24,16 @@ export default (state = initialState, action) => {
 
   if (action.type === GET_POSTS_FAILURE) {
     return { ...state, loading: false, error: action.payload };
+  }
+
+  if (action.type === CREATE_POST) {
+    console.log(action);
+    return state;
+  }
+
+  if (action.type === UPDATE_POST) {
+    console.log(action);
+    return state;
   }
 
   if (action.type === DELETE_POST) {

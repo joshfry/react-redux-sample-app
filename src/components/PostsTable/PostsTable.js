@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Table, Button, Spin } from 'antd';
 import { LoadingOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
-const getColumns = (deletePost) => {
+const getColumns = (updatePost, deletePost) => {
   return [
     {
       title: 'User Id',
@@ -47,10 +47,20 @@ const getColumns = (deletePost) => {
       key: 'action',
       render: (record) => (
         <span>
-          <Button type="link" onClick={() => console.log('Edit:', { id: record.id })}>
+          <Button
+            type="link"
+            onClick={() => console.log(`Open modal, then updatePost({ id: ${record.id} })`)}
+          >
             <EditOutlined />
           </Button>
-          <Button type="link" danger={true} onClick={() => deletePost({ id: record.id })}>
+          <Button
+            type="link"
+            danger={true}
+            onClick={() => {
+              console.log('First confirm, then delete');
+              deletePost({ id: record.id });
+            }}
+          >
             <DeleteOutlined />
           </Button>
         </span>
@@ -64,7 +74,7 @@ const onChange = (pagination, filters, sorter, extra) => {
   console.log('params', pagination, filters, sorter, extra);
 };
 
-const PostsTable = ({ posts, deletePost }) => {
+const PostsTable = ({ posts, updatePost, deletePost }) => {
   return (
     <React.Fragment>
       {posts.length === 0 ? (
@@ -74,7 +84,7 @@ const PostsTable = ({ posts, deletePost }) => {
       ) : (
         <Table
           rowKey="id"
-          columns={getColumns(deletePost)}
+          columns={getColumns(updatePost, deletePost)}
           dataSource={posts}
           onChange={onChange}
           showTotal={true}
@@ -86,6 +96,7 @@ const PostsTable = ({ posts, deletePost }) => {
 
 PostsTable.propTypes = {
   posts: PropTypes.array.isRequired,
+  updatePost: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
 };
 
