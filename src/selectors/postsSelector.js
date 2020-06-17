@@ -9,8 +9,8 @@ export const postsSelector = createSelector(allPostsSelector, ({ posts, filter }
     return (
       post.userId.toString() === filter ||
       post.id.toString() === filter ||
-      post.title.includes(filter) ||
-      post.body.includes(filter)
+      post.title.toUpperCase().includes(filter.toUpperCase()) ||
+      post.body.toUpperCase().includes(filter.toUpperCase())
     );
   });
 });
