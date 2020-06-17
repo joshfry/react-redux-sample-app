@@ -10,7 +10,7 @@ import PostsForm from 'components/PostsForm';
 
 const { Title, Text } = Typography;
 
-const PostsScreen = ({ getPosts, posts }) => {
+const PostsScreen = ({ getPosts, posts, filter }) => {
   const hasPosts = posts.length > 0;
 
   useEffect(() => {
@@ -29,7 +29,13 @@ const PostsScreen = ({ getPosts, posts }) => {
       </Toolbar>
 
       <Toolbar>
-        <div>{hasPosts && <Text type="secondary">{posts.length} results</Text>}</div>
+        <div>
+          {hasPosts && (
+            <Text type="secondary">
+              {posts.length} results {filter && '(Filtered)'}
+            </Text>
+          )}
+        </div>
         <div>
           <Button
             type="link"
@@ -53,9 +59,14 @@ const PostsScreen = ({ getPosts, posts }) => {
   );
 };
 
+PostsScreen.defaultProps = {
+  filter: '',
+};
+
 PostsScreen.propTypes = {
   getPosts: PropTypes.func.isRequired,
   posts: PropTypes.array.isRequired,
+  filter: PropTypes.string,
 };
 
 export default PostsScreen;

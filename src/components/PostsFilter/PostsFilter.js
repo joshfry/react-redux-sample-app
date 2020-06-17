@@ -7,11 +7,13 @@ const PostsFilter = ({ isDisabled, setFilter }) => {
   return (
     <div style={{ width: '100%', maxWidth: '400px' }}>
       <Input.Search
+        size="large"
         placeholder="Search"
         allowClear={true}
-        size="large"
-        onSearch={setFilter}
         disabled={isDisabled}
+        onSearch={setFilter}
+        // when user manually deletes search value, clear the filter
+        onChange={(e) => !e.target.value && e.type !== 'click' && setFilter('')}
       />
     </div>
   );
