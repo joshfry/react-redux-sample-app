@@ -5,12 +5,14 @@ import {
   CREATE_POST,
   UPDATE_POST,
   DELETE_POST,
+  SET_FILTER,
 } from 'actions/actionTypes';
 
 const initialState = {
   posts: [],
   loading: true,
   error: null,
+  filter: '',
 };
 
 export default (state = initialState, action) => {
@@ -40,6 +42,10 @@ export default (state = initialState, action) => {
     const { posts, ...values } = state;
     const filteredPosts = state.posts.filter((post) => post.id !== action.payload.id);
     return { posts: filteredPosts, ...values };
+  }
+
+  if (action.type === SET_FILTER) {
+    return { ...state, filter: action.payload };
   }
 
   return state;

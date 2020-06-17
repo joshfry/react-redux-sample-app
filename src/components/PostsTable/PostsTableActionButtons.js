@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Button } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
-export const PostsTableActionButtons = ({ record, updatePost, deletePost }) => {
+const PostsTableActionButtons = ({ record, updatePost, deletePost }) => {
   return (
     <span>
       <Button
@@ -36,3 +36,5 @@ PostsTableActionButtons.propTypes = {
   updatePost: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
 };
+
+export default PostsTableActionButtons;
