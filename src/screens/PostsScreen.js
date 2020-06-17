@@ -15,7 +15,7 @@ const PostsScreen = ({ getPosts, posts }) => {
 
   useEffect(() => {
     if (!hasPosts) getPosts();
-  });
+  }, []); // eslint-disable-line
 
   const [modalOpen, setModalOpen] = useState(false);
   const showModal = () => setModalOpen(true);
