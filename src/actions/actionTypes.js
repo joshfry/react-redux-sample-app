@@ -7,3 +7,4 @@ export const UPDATE_POST = 'posts/UPDATE_POST';
 export const DELETE_POST = 'posts/DELETE_POST';
 
 export const SET_FILTER = 'posts/SET_FILTER';
+export const SET_MODAL = 'posts/SET_MODAL';

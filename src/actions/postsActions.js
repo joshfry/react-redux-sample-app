@@ -7,6 +7,7 @@ import {
   UPDATE_POST,
   DELETE_POST,
   SET_FILTER,
+  SET_MODAL,
 } from 'actions/actionTypes';
 
 // ACTION CREATORS
@@ -16,6 +17,7 @@ export const updatePost = (payload) => ({ type: UPDATE_POST, payload });
 export const deletePost = (payload) => ({ type: DELETE_POST, payload });
 
 export const setFilter = (payload) => ({ type: SET_FILTER, payload });
+export const setModal = (payload) => ({ type: SET_MODAL, payload });
 
 // ASYNC ACTION CREATORS
 

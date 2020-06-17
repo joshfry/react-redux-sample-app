@@ -6,6 +6,7 @@ import {
   UPDATE_POST,
   DELETE_POST,
   SET_FILTER,
+  SET_MODAL,
 } from 'actions/actionTypes';
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
   loading: true,
   error: null,
   filter: '',
+  modal: { type: '' },
 };
 
 export default (state = initialState, action) => {
@@ -40,12 +42,16 @@ export default (state = initialState, action) => {
 
   if (action.type === DELETE_POST) {
     const { posts, ...values } = state;
-    const filteredPosts = state.posts.filter((post) => post.id !== action.payload.id);
+    const filteredPosts = state.posts.filter((post) => post.id !== action.payload);
     return { posts: filteredPosts, ...values };
   }
 
   if (action.type === SET_FILTER) {
     return { ...state, filter: action.payload };
+  }
+
+  if (action.type === SET_MODAL) {
+    return { ...state, modal: action.payload };
   }
 
   return state;

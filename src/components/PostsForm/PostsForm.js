@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { Form, Input, InputNumber, Button } from 'antd';
 import uniqueId from 'lodash/uniqueId';
 
-const PostsForm = ({ hideModal }) => {
+const PostsForm = ({ record, closeModal }) => {
   const [form] = Form.useForm();
+
+  // console.log('record', record);
 
   const onFinish = (values) => {
     const post = {
@@ -15,7 +17,7 @@ const PostsForm = ({ hideModal }) => {
     // TODO: sdave new post
     console.log(post);
 
-    hideModal();
+    closeModal();
   };
 
   return (
@@ -62,7 +64,7 @@ const PostsForm = ({ hideModal }) => {
           style={{ margin: '0 8px' }}
           onClick={() => {
             form.resetFields();
-            hideModal();
+            closeModal();
           }}
         >
           Cancel
@@ -73,7 +75,7 @@ const PostsForm = ({ hideModal }) => {
 };
 
 PostsForm.propTypes = {
-  hideModal: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
 };
 
 export default PostsForm;
