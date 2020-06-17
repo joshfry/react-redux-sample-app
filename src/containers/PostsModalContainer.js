@@ -11,7 +11,7 @@ const mapStateToProps = ({ posts }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    closeModal: (payload) => dispatch(setModal({ type: '' })),
+    closeModal: () => dispatch(setModal({ type: '' })),
   };
 };
 

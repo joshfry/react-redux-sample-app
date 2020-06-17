@@ -24,7 +24,6 @@ export const getPostsColumns = () => {
       title: 'Title',
       dataIndex: 'title',
       ellipsis: true,
-      // onFilter: (value, record) => record.title.includes(value),
       sorter: {
         compare: (a, b) => a.title.localeCompare(b.title),
         multiple: 2,
@@ -34,7 +33,6 @@ export const getPostsColumns = () => {
       title: 'Body',
       dataIndex: 'body',
       ellipsis: true,
-      // onFilter: (value, record) => record.body.includes(value),
       sorter: {
         compare: (a, b) => a.body.localeCompare(b.body),
         multiple: 1,

@@ -3,18 +3,16 @@ import { connect } from 'react-redux';
 import PostsScreen from 'screens/PostsScreen';
 
 import { postsSelector } from 'selectors/postsSelector';
-import { getPosts, setModal } from 'actions/postsActions';
+import { getPosts } from 'actions/postsActions';
 
 const mapStateToProps = ({ posts }) => {
   return {
-    filter: posts.filter,
-    modal: posts.modal,
     posts: [...postsSelector({ posts })],
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ getPosts, setModal }, dispatch);
+  return bindActionCreators({ getPosts }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostsScreen);

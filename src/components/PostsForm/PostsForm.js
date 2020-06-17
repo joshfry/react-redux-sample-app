@@ -6,7 +6,7 @@ import uniqueId from 'lodash/uniqueId';
 const PostsForm = ({ record, closeModal }) => {
   const [form] = Form.useForm();
 
-  // console.log('record', record);
+  console.log('record', record);
 
   const onFinish = (values) => {
     const post = {
@@ -22,7 +22,7 @@ const PostsForm = ({ record, closeModal }) => {
 
   return (
     <Form
-      name="new-post"
+      name="post-form"
       layout="vertical"
       validateMessages={{
         required: '${label} is required.', // eslint-disable-line

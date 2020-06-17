@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Popconfirm } from 'antd';
 import { Button } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { modalTypes } from 'components/PostsModal';
@@ -10,26 +11,23 @@ const PostsTableActionButtons = ({ record, setModal, deletePost }) => {
       <Button type="link" onClick={() => setModal({ type: modalTypes.EDIT_POST, record })}>
         <EditOutlined />
       </Button>
-      <Button
-        type="link"
-        danger={true}
-        onClick={() => {
-          console.log('First confirm, then delete');
-          deletePost(record.id);
-        }}
+      <Popconfirm
+        title="Delete the selected post?"
+        okText="Yes"
+        cancelText="No"
+        onConfirm={() => deletePost(record.id)}
       >
-        <DeleteOutlined />
-      </Button>
+        <Button type="link" danger={true}>
+          <DeleteOutlined />
+        </Button>
+      </Popconfirm>
     </span>
   );
 };
 
 PostsTableActionButtons.propTypes = {
   record: PropTypes.shape({
-    userId: PropTypes.number,
-    id: PropTypes.number,
-    title: PropTypes.string,
-    body: PropTypes.string,
+    id: PropTypes.number.isRequired,
   }).isRequired,
   setModal: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
