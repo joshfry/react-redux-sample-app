@@ -1,0 +1,17 @@
+.Screen {
+  min-height: 100vh;
+
+  &__main {
+    width: 100%;
+    max-width: 80%;
+    margin: auto;
+    padding: 3rem 0;
+
+    > *:first-child {
+      margin-top: 0;
+    }
+    > *:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
