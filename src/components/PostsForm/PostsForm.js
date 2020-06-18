@@ -1,7 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input, InputNumber, Button } from 'antd';
-import uniqueId from 'lodash/uniqueId';
+
+const idGenerator = () => {
+  let count = 101;
+  const getId = () => count;
+  const increment = () => {
+    count += 1;
+  };
+  return { getId, increment };
+};
+
+const ids = idGenerator();
 
 const PostsForm = ({ createPost, updatePost, closeModal, record }) => {
   const [form] = Form.useForm();
@@ -9,7 +19,7 @@ const PostsForm = ({ createPost, updatePost, closeModal, record }) => {
 
   const initialValues = {
     userId: undefined,
-    id: +uniqueId(10),
+    id: ids.getId(),
     title: '',
     body: '',
     ...record,
@@ -23,6 +33,7 @@ const PostsForm = ({ createPost, updatePost, closeModal, record }) => {
     }
 
     createPost(values);
+    ids.increment();
     closeModal();
   };
 
