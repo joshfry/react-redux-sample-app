@@ -42,7 +42,7 @@ export const getPostsColumns = () => {
       title: 'Action',
       key: 'action',
       render: (record) => <PostsTableActionButtonsContainer record={record} />,
-      width: 125,
+      width: 110,
     },
   ];
 };
