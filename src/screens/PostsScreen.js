@@ -5,7 +5,6 @@ import ExportPostsButtonContainer from 'containers/ExportPostsButtonContainer';
 import NewPostButtonContainer from 'containers/NewPostButtonContainer';
 import PostsFilterContainer from 'containers/PostsFilterContainer';
 import PostsModalContainer from 'containers/PostsModalContainer';
-import PostsResultsContainer from 'containers/PostsResultsContainer';
 import PostsTableContainer from 'containers/PostsTableContainer';
 import Screen from 'components/Screen';
 import Toolbar from 'components/Toolbar';
@@ -22,9 +21,7 @@ const PostsScreen = ({ getPosts }) => {
         <PostsFilterContainer />
       </Toolbar>
       <Toolbar>
-        <div>
-          <PostsResultsContainer />
-        </div>
+        <div />
         <div>
           <NewPostButtonContainer />
           <ExportPostsButtonContainer />

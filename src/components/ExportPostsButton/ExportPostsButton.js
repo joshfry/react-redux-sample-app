@@ -18,7 +18,7 @@ const cratePostsCsv = (posts) => {
 const ExportPostsButton = ({ posts }) => {
   return (
     <a
-      className="ant-btn ant-btn-link ant-btn-lg"
+      className="ExportPostsButton ant-btn ant-btn-link ant-btn-lg"
       href={`data:text/plain;charset=utf-8,${cratePostsCsv(posts)}`}
       download="Posts.csv"
     >

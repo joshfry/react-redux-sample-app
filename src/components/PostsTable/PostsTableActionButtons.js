@@ -8,7 +8,11 @@ import { modalTypes } from 'components/PostsModal';
 const PostsTableActionButtons = ({ record, setModal, deletePost }) => {
   return (
     <span>
-      <Button type="link" onClick={() => setModal({ type: modalTypes.EDIT_POST, record })}>
+      <Button
+        className="PostsTableActionButton"
+        type="link"
+        onClick={() => setModal({ type: modalTypes.EDIT_POST, record })}
+      >
         <EditOutlined />
       </Button>
       <Popconfirm
@@ -17,7 +21,7 @@ const PostsTableActionButtons = ({ record, setModal, deletePost }) => {
         cancelText="No"
         onConfirm={() => deletePost(record.id)}
       >
-        <Button type="link" danger={true}>
+        <Button className="PostsTableActionButton" type="link">
           <DeleteOutlined />
         </Button>
       </Popconfirm>
