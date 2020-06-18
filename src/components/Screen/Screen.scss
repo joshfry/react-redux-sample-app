@@ -2,11 +2,27 @@
   min-height: 100vh;
   background-color: #fafafa;
 
-  &__main {
+  .Header {
+    padding: 0;
+
+    @media (min-width: 960px) {
+      padding: 0 50px;
+    }
+  }
+
+  .main {
     width: 100%;
-    max-width: 85%;
-    margin: auto;
-    padding: 3rem 0;
+    padding: 2rem 20px;
+
+    @media (min-width: 960px) {
+      max-width: 90%;
+      margin: auto;
+      padding: 3rem 50px;
+    }
+
+    @media (min-width: 1400px) {
+      max-width: 85%;
+    }
 
     > *:first-child {
       margin-top: 0;

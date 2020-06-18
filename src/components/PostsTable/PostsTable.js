@@ -7,9 +7,11 @@ import { getPostsColumns } from './getPostsColumns';
 const PostsTable = ({ posts }) => (
   <Table
     rowKey="id"
+    size="small"
     dataSource={posts}
     columns={getPostsColumns()}
     showTotal={true}
+    scroll={{ x: 1300 }}
     footer={() => <PostsResultsContainer />}
   />
 );

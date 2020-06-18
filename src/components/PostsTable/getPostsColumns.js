@@ -10,7 +10,7 @@ export const getPostsColumns = () => {
         compare: (a, b) => a.userId - b.userId,
         multiple: 4,
       },
-      width: 150,
+      width: 120,
     },
     {
       title: 'Id',
@@ -18,7 +18,7 @@ export const getPostsColumns = () => {
       sorter: {
         compare: (a, b) => a.id - b.id,
       },
-      width: 150,
+      width: 120,
     },
     {
       title: 'Title',
@@ -28,6 +28,7 @@ export const getPostsColumns = () => {
         compare: (a, b) => a.title.localeCompare(b.title),
         multiple: 2,
       },
+      // width: 400,
     },
     {
       title: 'Body',
@@ -37,10 +38,12 @@ export const getPostsColumns = () => {
         compare: (a, b) => a.body.localeCompare(b.body),
         multiple: 1,
       },
+      // width: 400,
     },
     {
       title: 'Action',
       key: 'action',
+      fixed: 'right',
       render: (record) => <PostsTableActionButtonsContainer record={record} />,
       width: 110,
     },

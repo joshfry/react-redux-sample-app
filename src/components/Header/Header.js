@@ -3,7 +3,7 @@ import { Layout, Menu } from 'antd';
 
 const Header = () => {
   return (
-    <Layout.Header>
+    <Layout.Header className="Header">
       <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
         <Menu.Item key="1">Posts</Menu.Item>
       </Menu>

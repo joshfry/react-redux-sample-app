@@ -2,17 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Popconfirm } from 'antd';
 import { Button } from 'antd';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, EyeOutlined } from '@ant-design/icons';
 import { modalTypes } from 'components/PostsModal';
 
 const PostsTableActionButtons = ({ record, setModal, deletePost }) => {
   return (
-    <span>
-      <Button
-        className="PostsTableActionButton"
-        type="link"
-        onClick={() => setModal({ type: modalTypes.EDIT_POST, record })}
-      >
+    <div className="PostsTableActionButtons">
+      <Button type="link" onClick={() => setModal({ type: modalTypes.VIEW_POST, record })}>
+        <EyeOutlined />
+      </Button>
+      <Button type="link" onClick={() => setModal({ type: modalTypes.EDIT_POST, record })}>
         <EditOutlined />
       </Button>
       <Popconfirm
@@ -21,11 +20,11 @@ const PostsTableActionButtons = ({ record, setModal, deletePost }) => {
         cancelText="No"
         onConfirm={() => deletePost(record.id)}
       >
-        <Button className="PostsTableActionButton" type="link">
+        <Button type="link">
           <DeleteOutlined />
         </Button>
       </Popconfirm>
-    </span>
+    </div>
   );
 };
 

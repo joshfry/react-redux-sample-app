@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Input } from 'antd';
-import './PostsFilter.scss';
 
 const PostsFilter = ({ isDisabled, setFilter }) => {
   return (
-    <div style={{ width: '100%', maxWidth: '400px' }}>
+    <div className="PostsFilter">
       <Input.Search
         size="large"
         placeholder="Search"

@@ -55,7 +55,7 @@ const PostsForm = ({ createPost, updatePost, closeModal, record }) => {
           label="User Id"
           rules={[{ required: true, type: 'number', min: 0 }]}
         >
-          <InputNumber style={{ width: 150 }} readOnly={isEditForm} disabled={isEditForm} />
+          <InputNumber style={{ width: 140 }} readOnly={isEditForm} disabled={isEditForm} />
         </Form.Item>
         <Form.Item
           name="id"
@@ -63,7 +63,7 @@ const PostsForm = ({ createPost, updatePost, closeModal, record }) => {
           rules={[{ required: true, type: 'number', min: 0 }]}
           style={{ margin: '0 1rem' }}
         >
-          <InputNumber style={{ width: 150 }} readOnly={true} disabled={true} />
+          <InputNumber style={{ width: 140 }} readOnly={true} disabled={true} />
         </Form.Item>
       </Input.Group>
       <Form.Item name="title" label="Title" rules={[{ required: true }]}>

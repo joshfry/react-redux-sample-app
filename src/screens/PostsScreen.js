@@ -17,12 +17,14 @@ const PostsScreen = ({ getPosts }) => {
   return (
     <Screen>
       <Toolbar>
-        <Typography.Title>Posts</Typography.Title>
+        <div>
+          <Typography.Title>Posts</Typography.Title>
+        </div>
         <PostsFilterContainer />
       </Toolbar>
       <Toolbar>
         <div />
-        <div>
+        <div className="posts-actions">
           <NewPostButtonContainer />
           <ExportPostsButtonContainer />
         </div>

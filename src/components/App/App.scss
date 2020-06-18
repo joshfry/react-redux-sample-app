@@ -1,19 +1,22 @@
+html {
+  box-sizing: border-box;
+  background-color: #fafafa;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
 /*
   ant design overrides
 */
-
-h1.ant-typography {
-  font-size: 32px;
-}
 
 .ant-layout-header,
 .ant-menu.ant-menu-dark,
 .ant-menu.ant-menu-dark .ant-menu-item-selected {
   background-color: #313131;
-}
-
-section.ant-layout {
-  background-color: #fafafa;
 }
 
 .ant-input-search {
@@ -23,65 +26,77 @@ section.ant-layout {
   border: none;
 }
 
-.ant-table-wrapper {
-  border-bottom: 1px solid #ddd;
-}
+.ant-table {
+  &-thead > tr > th {
+    border-top: 1px solid #edeeef;
+    border-bottom: 2px solid #e8e8e8;
+  }
 
-.ant-table-thead > tr > th {
-  border-top: 1px solid #edeeef;
-  border-bottom: 2px solid #e8e8e8;
-}
+  &-tbody {
+    > tr {
+      background-color: #fafafa;
 
-.ant-table-tbody {
-  > tr {
-    > td {
-      padding: 10px 16px;
-    }
-
-    &:last-of-type {
-      > td {
+      &:last-of-type > td {
         border-bottom: 1px solid #ddd;
       }
     }
   }
+
+  &-footer {
+    @media (min-width: 720px) {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      height: 56px;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &-cell-fix-left,
+  &-cell-fix-right {
+    background-color: inherit;
+    padding: 8px 12px !important;
+  }
 }
 
-tr.ant-table-row:nth-child(odd) {
-  background: #f9f9f9;
-}
-tr.ant-table-row:nth-child(even) {
-  background: #fafafa;
+.ant-pagination {
+  &-item,
+  &-item-active,
+  &-item-link.ant-pagination-item-link,
+  &-item-link.ant-pagination-item-link {
+    background: none;
+    border: none;
+  }
+
+  @media (max-width: 719px) {
+    width: 100%;
+  }
+
+  &-options {
+    display: inline-block !important;
+
+    @media (max-width: 719px) {
+      float: right;
+    }
+
+    @media (min-width: 720px) {
+      position: absolute;
+      left: 240px;
+    }
+  }
 }
 
-.ant-table-footer {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  height: 64px;
-  display: flex;
-  align-items: center;
-}
-
-.ant-pagination-item,
-.ant-pagination-item-active,
-.ant-pagination-prev .ant-pagination-item-link,
-.ant-pagination-next .ant-pagination-item-link,
 .ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
   background: none;
   border: none;
 }
 
-.ant-pagination-options {
-  position: absolute;
-  left: 300px;
-  margin-left: 5px;
-}
+.PostsTableActionButtons {
+  display: flex;
+  justify-content: space-between;
 
-.PostsTableActionButton {
-  padding: 0;
-  margin-right: 14px;
-}
-
-.ExportPostsButton {
-  padding-right: 0;
+  .ant-btn {
+    padding: 0;
+  }
 }
