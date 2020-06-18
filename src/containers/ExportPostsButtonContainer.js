@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import ExportCsvButton from 'components/ExportCsvButton';
+import ExportPostsButton from 'components/ExportPostsButton';
 
 import { postsSelector } from 'selectors/postsSelector';
 
@@ -9,4 +9,4 @@ const mapStateToProps = ({ posts }) => {
   };
 };
 
-export default connect(mapStateToProps)(ExportCsvButton);
+export default connect(mapStateToProps)(ExportPostsButton);

@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'antd';
 import { DownloadOutlined } from '@ant-design/icons';
 
-const createCsv = (posts) => {
-  return encodeURI(
-    'data:text/csv;charset=utf-8,' +
+const cratePostsCsv = (posts) => {
+  return encodeURIComponent(
+    'User Id, Id, Title, Body\n' +
       posts
         .map((post) =>
           Object.entries(post)
@@ -16,21 +15,20 @@ const createCsv = (posts) => {
   );
 };
 
-const ExportCsvButton = ({ posts }) => {
+const ExportPostsButton = ({ posts }) => {
   return (
-    <Button
-      type="link"
-      size="large"
-      disabled={posts.length === 0}
-      onClick={() => window.open(createCsv(posts), '_blank')}
+    <a
+      className="ant-btn ant-btn-link ant-btn-lg"
+      href={`data:text/plain;charset=utf-8,${cratePostsCsv(posts)}`}
+      download="Posts.csv"
     >
       <DownloadOutlined /> Export
-    </Button>
+    </a>
   );
 };
 
-ExportCsvButton.propTypes = {
+ExportPostsButton.propTypes = {
   posts: PropTypes.array.isRequired,
 };
 
-export default ExportCsvButton;
+export default ExportPostsButton;

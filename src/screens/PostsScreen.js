@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Typography } from 'antd';
-import ExportCsvButtonContainer from 'containers/ExportCsvButtonContainer';
+import ExportPostsButtonContainer from 'containers/ExportPostsButtonContainer';
 import NewPostButtonContainer from 'containers/NewPostButtonContainer';
 import PostsFilterContainer from 'containers/PostsFilterContainer';
 import PostsModalContainer from 'containers/PostsModalContainer';
@@ -27,7 +27,7 @@ const PostsScreen = ({ getPosts }) => {
         </div>
         <div>
           <NewPostButtonContainer />
-          <ExportCsvButtonContainer />
+          <ExportPostsButtonContainer />
         </div>
       </Toolbar>
       <PostsTableContainer />
