@@ -5,7 +5,10 @@ import PostsFormContainer from 'containers/PostsFormContainer';
 import { modalTypes } from './index';
 
 const PostsModal = ({ modal, closeModal }) => {
-  const title = modal.type === modalTypes.NEW_POST ? 'New Post' : 'Edit Post';
+  let title = '';
+  if (modal.type === modalTypes.NEW_POST) title = 'New Post';
+  if (modal.type === modalTypes.EDIT_POST) title = 'Edit Post';
+  if (modal.type === modalTypes.VIEW_POST) title = `Post ${modal.record.id}`;
 
   return (
     <Modal
@@ -16,7 +19,7 @@ const PostsModal = ({ modal, closeModal }) => {
       visible={modal.type}
       onCancel={closeModal}
     >
-      <PostsFormContainer record={modal.record} closeModal={closeModal} />
+      <PostsFormContainer modalType={modal.type} record={modal.record} closeModal={closeModal} />
     </Modal>
   );
 };

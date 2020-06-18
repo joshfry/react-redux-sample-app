@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input, InputNumber, Button } from 'antd';
+import { modalTypes } from 'components/PostsModal';
 
 const idGenerator = () => {
   let count = 101;
@@ -13,9 +14,11 @@ const idGenerator = () => {
 
 const ids = idGenerator();
 
-const PostsForm = ({ createPost, updatePost, closeModal, record }) => {
+const PostsForm = ({ createPost, updatePost, modalType, record, closeModal }) => {
   const [form] = Form.useForm();
-  const isEditForm = Object.keys(record).length > 0;
+
+  const isEditForm = modalType === modalTypes.EDIT_POST;
+  const isReadOnlyForm = modalType === modalTypes.VIEW_POST;
 
   const initialValues = {
     userId: undefined,
@@ -39,6 +42,7 @@ const PostsForm = ({ createPost, updatePost, closeModal, record }) => {
 
   return (
     <Form
+      className={`${isEditForm && 'isEditForm'} ${isReadOnlyForm && 'isReadOnlyForm'}`}
       name="post-form"
       layout="vertical"
       validateMessages={{
@@ -55,7 +59,7 @@ const PostsForm = ({ createPost, updatePost, closeModal, record }) => {
           label="User Id"
           rules={[{ required: true, type: 'number', min: 0 }]}
         >
-          <InputNumber style={{ width: 140 }} readOnly={isEditForm} disabled={isEditForm} />
+          <InputNumber style={{ width: 140 }} readOnly={isReadOnlyForm || isEditForm} />
         </Form.Item>
         <Form.Item
           name="id"
@@ -63,23 +67,25 @@ const PostsForm = ({ createPost, updatePost, closeModal, record }) => {
           rules={[{ required: true, type: 'number', min: 0 }]}
           style={{ margin: '0 1rem' }}
         >
-          <InputNumber style={{ width: 140 }} readOnly={true} disabled={true} />
+          <InputNumber style={{ width: 140 }} readOnly={true} />
         </Form.Item>
       </Input.Group>
       <Form.Item name="title" label="Title" rules={[{ required: true }]}>
-        <Input />
+        <Input readOnly={isReadOnlyForm} />
       </Form.Item>
       <Form.Item name="body" label="Body">
-        <Input.TextArea rows={7} />
+        <Input.TextArea rows={7} readOnly={isReadOnlyForm} />
       </Form.Item>
-      <Form.Item style={{ marginBottom: '0' }}>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-        <Button htmlType="button" style={{ margin: '0 8px' }} onClick={() => closeModal()}>
-          Cancel
-        </Button>
-      </Form.Item>
+      {!isReadOnlyForm && (
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+          <Button htmlType="button" style={{ margin: '0 8px' }} onClick={() => closeModal()}>
+            Cancel
+          </Button>
+        </Form.Item>
+      )}
     </Form>
   );
 };
